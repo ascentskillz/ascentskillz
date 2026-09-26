@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ascent Tutoring — Math &amp; Science Resources</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c2333;
+    --paper:#f2ede1;
+    --paper-line:#d9cfb8;
+    --math:#b45a2c;
+    --science:#2f6f5e;
+    --panel:#ffffff;
+    --muted:#6b6455;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#ece7db;
+      --paper:#171a22;
+      --paper-line:#2b3040;
+      --panel:#1f2430;
+      --muted:#9a9284;
+      --math:#e07a45;
+      --science:#5cae97;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#ece7db;
+    --paper:#171a22;
+    --paper-line:#2b3040;
+    --panel:#1f2430;
+    --muted:#9a9284;
+    --math:#e07a45;
+    --science:#5cae97;
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    line-height:1.5;
+    background-image:
+      linear-gradient(var(--paper-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+    background-size:28px 28px;
+    background-position:-1px -1px;
+  }
+  a{color:inherit;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  header.top{
+    position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+    background:var(--paper);border-bottom:1px solid var(--paper-line);
+  }
+  .topbar{display:flex;align-items:baseline;justify-content:space-between;padding:16px 24px;max-width:920px;margin:0 auto;gap:16px;flex-wrap:wrap;}
+  .brand{font-family:'Source Serif 4',serif;font-weight:600;font-size:1.25rem;letter-spacing:0.01em;}
+  .brand sup{font-family:'IBM Plex Mono',monospace;font-size:0.55em;color:var(--muted);margin-left:2px;}
+  nav.links{display:flex;gap:20px;font-size:0.92rem;}
+  nav.links a{text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;}
+  nav.links a:hover{border-bottom-color:currentColor;}
+
+  .hero{padding:64px 0 40px;}
+  .hero h1{
+    font-family:'Source Serif 4',serif;font-weight:700;
+    font-size:clamp(2.1rem,5vw,3.2rem);line-height:1.08;margin:0 0 18px;max-width:14ch;
+  }
+  .hero p.lede{max-width:52ch;color:var(--muted);font-size:1.05rem;margin:0 0 28px;}
+  .coord-row{display:flex;gap:28px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;color:var(--muted);}
+  .coord-row strong{display:block;font-family:'Source Serif 4',serif;font-size:1.5rem;color:var(--ink);font-weight:600;}
+
+  .tier-nav{display:flex;gap:10px;margin:48px 0 4px;flex-wrap:wrap;}
+  .tier-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:0.82rem;
+    background:none;border:1px solid var(--paper-line);color:var(--muted);
+    padding:9px 16px;border-radius:2px;cursor:pointer;
+  }
+  .tier-btn[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  section.tier{display:none;padding:32px 0 8px;}
+  section.tier.active{display:block;}
+  .tier-head{margin-bottom:8px;}
+  .tier-head h2{font-family:'Source Serif 4',serif;font-size:1.7rem;margin:0 0 4px;}
+  .tier-head p{color:var(--muted);margin:0 0 24px;max-width:60ch;}
+
+  .subject-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+  @media(min-width:720px){.subject-grid{grid-template-columns:1fr 1fr;}}
+  .subject-grid.single{max-width:460px;}
+  @media(min-width:720px){.subject-grid.single{grid-template-columns:1fr;}}
+  .subject{border-top:3px solid var(--line-color,var(--math));padding-top:14px;}
+  .subject.math{--line-color:var(--math);}
+  .subject.science{--line-color:var(--science);}
+  .subject h3{
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.04em;
+    color:var(--line-color);margin:0 0 14px;text-transform:uppercase;
+  }
+  ul.res-list{list-style:none;margin:0;padding:0;}
+  ul.res-list li{
+    display:flex;gap:14px;padding:13px 0;border-bottom:1px solid var(--paper-line);
+    align-items:baseline;
+  }
+  ul.res-list li:last-child{border-bottom:none;}
+  .res-idx{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:var(--muted);min-width:2.4em;}
+  .res-body h4{margin:0 0 3px;font-size:0.98rem;font-weight:500;}
+  .res-body p{margin:0;font-size:0.86rem;color:var(--muted);}
+  .res-body .fmt{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--line-color);margin-right:8px;}
+
+  .about{padding:56px 0;border-top:1px solid var(--paper-line);margin-top:48px;}
+  .about h2{font-family:'Source Serif 4',serif;font-size:1.6rem;margin:0 0 14px;}
+  .about p{max-width:60ch;color:var(--muted);}
+
+  .contact{padding:0 0 72px;}
+  .contact-panel{
+    background:var(--panel);border:1px solid var(--paper-line);border-radius:3px;
+    padding:32px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;
+  }
+  .contact-panel h2{font-family:'Source Serif 4',serif;font-size:1.4rem;margin:0 0 6px;}
+  .contact-panel p{margin:0;color:var(--muted);max-width:38ch;}
+  .btn{
+    font-family:'IBM Plex Sans',sans-serif;font-weight:500;font-size:0.92rem;
+    background:var(--ink);color:var(--paper);border:none;padding:12px 22px;
+    border-radius:2px;text-decoration:none;white-space:nowrap;
+  }
+  .btn-group{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn.secondary{background:none;color:var(--ink);border:1px solid var(--paper-line);}
+
+  footer{border-top:1px solid var(--paper-line);padding:20px 24px;font-size:0.82rem;color:var(--muted);}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topbar">
+    <div class="brand">Ascent<sup>math · science, gr. 7–12</sup></div>
+    <nav class="links">
+      <a href="#resources">Resources</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <h1>Math and science support, mapped to where your student is right now.</h1>
+    <p class="lede">Ascent builds a personal curriculum for each student — worksheets, guides, and practice sets organized by grade level, so nobody wastes a session on the wrong material.</p>
+    <div class="coord-row">
+      <div><strong>7–12</strong>grade coverage</div>
+      <div><strong>2</strong>core subjects</div>
+      <div><strong>1:1</strong>session format</div>
+    </div>
+  </section>
+
+  <div id="resources"></div>
+  <div class="tier-nav" role="tablist" aria-label="Grade level">
+    <button class="tier-btn" data-tier="middle" aria-selected="true" role="tab">7 – 8 · Middle School</button>
+    <button class="tier-btn" data-tier="high" aria-selected="false" role="tab">9 – 12 · High School</button>
+    <button class="tier-btn" data-tier="testprep" aria-selected="false" role="tab">Test Prep &amp; Competitions</button>
+  </div>
+
+  <section class="tier active" id="middle">
+    <div class="tier-head">
+      <h2>Middle School · Grades 7–8</h2>
+      <p>Building the algebra foundation everything after it depends on.</p>
+    </div>
+    <div class="subject-grid single">
+      <div class="subject math">
+        <h3>Math</h3>
+        <ul class="res-list">
+          <li><span class="res-idx">01</span><div class="res-body"><span class="fmt">Practice Set</span><h4>7th Grade Math</h4><p>Ratios, proportions, negative numbers, and early algebra.</p></div></li>
+          <li><span class="res-idx">02</span><div class="res-body"><span class="fmt">Practice Set</span><h4>Pre-Algebra</h4><p>Linear equations, exponents, and an intro to functions.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tier" id="high">
+    <div class="tier-head">
+      <h2>High School · Grades 9–12</h2>
+      <p>Course-aligned and AP-exam-ready, from Algebra 1 through Calculus BC.</p>
+    </div>
+    <div class="subject-grid">
+      <div class="subject math">
+        <h3>Math</h3>
+        <ul class="res-list">
+          <li><span class="res-idx">01</span><div class="res-body"><span class="fmt">Study Guide</span><h4>Algebra 1</h4><p>Linear and quadratic equations, functions, and systems.</p></div></li>
+          <li><span class="res-idx">02</span><div class="res-body"><span class="fmt">Practice Set</span><h4>Geometry</h4><p>Proofs, congruence, similarity, and coordinate geometry.</p></div></li>
+          <li><span class="res-idx">03</span><div class="res-body"><span class="fmt">Study Guide</span><h4>Algebra 2 &amp; Trigonometry</h4><p>Polynomials, exponentials, logarithms, and trig identities.</p></div></li>
+          <li><span class="res-idx">04</span><div class="res-body"><span class="fmt">Guide</span><h4>Precalculus</h4><p>Functions, trigonometry, sequences, and an intro to limits.</p></div></li>
+          <li><span class="res-idx">05</span><div class="res-body"><span class="fmt">Study Guide</span><h4>AP Calculus AB/BC</h4><p>Limits, derivatives, integrals, and series (BC).</p></div></li>
+          <li><span class="res-idx">06</span><div class="res-body"><span class="fmt">Study Guide</span><h4>AP Statistics</h4><p>Data analysis, probability, and statistical inference.</p></div></li>
+        </ul>
+      </div>
+      <div class="subject science">
+        <h3>Science</h3>
+        <ul class="res-list">
+          <li><span class="res-idx">01</span><div class="res-body"><span class="fmt">Guide</span><h4>Earth &amp; Space Science</h4><p>Geology, meteorology, oceanography, and astronomy.</p></div></li>
+          <li><span class="res-idx">02</span><div class="res-body"><span class="fmt">Practice Set</span><h4>Chemistry</h4><p>Atomic structure, bonding, stoichiometry, and reactions.</p></div></li>
+          <li><span class="res-idx">03</span><div class="res-body"><span class="fmt">Practice Set</span><h4>Physics</h4><p>Mechanics, energy, waves, and electricity.</p></div></li>
+          <li><span class="res-idx">04</span><div class="res-body"><span class="fmt">Study Guide</span><h4>AP Chemistry</h4><p>College-level chemistry with lab-based problem solving.</p></div></li>
+          <li><span class="res-idx">05</span><div class="res-body"><span class="fmt">Study Guide</span><h4>AP Physics 1/2</h4><p>Algebra-based mechanics, E&amp;M, waves, and thermodynamics.</p></div></li>
+          <li><span class="res-idx">06</span><div class="res-body"><span class="fmt">Study Guide</span><h4>AP Physics C</h4><p>Calculus-based mechanics and electricity &amp; magnetism.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="tier" id="testprep">
+    <div class="tier-head">
+      <h2>Test Prep &amp; Competitions</h2>
+      <p>Targeted practice for admissions exams and math competitions, independent of grade level.</p>
+    </div>
+    <div class="subject-grid single">
+      <div class="subject math">
+        <h3>Math</h3>
+        <ul class="res-list">
+          <li><span class="res-idx">01</span><div class="res-body"><span class="fmt">Practice Set</span><h4>SAT Math</h4><p>Algebra, problem solving, and data analysis for the digital SAT.</p></div></li>
+          <li><span class="res-idx">02</span><div class="res-body"><span class="fmt">Practice Set</span><h4>SHSAT Math</h4><p>NYC specialized high school admissions math prep.</p></div></li>
+          <li><span class="res-idx">03</span><div class="res-body"><span class="fmt">Practice Set</span><h4>ISEE Math</h4><p>Quantitative reasoning for independent school admissions.</p></div></li>
+          <li><span class="res-idx">04</span><div class="res-body"><span class="fmt">Practice Set</span><h4>AMC 8/10/12</h4><p>Competition problem solving, from MATHCOUNTS through AMC.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About the tutor</h2>
+    <p>I started tutoring in 11th grade, helping friends and classmates who were stuck in higher-level math courses — that's grown into what Ascent is today. In high school I passed the AMC 12, which qualified me for the AIME, and I went on to major in Aerospace Engineering.</p>
+    <p>My approach is built around solving problems, not just reviewing concepts. Understanding an idea and being able to execute it under exam pressure are two different skills, so sessions lean heavy on practice. I push students hard and I can be blunt about it, but it comes from wanting them to get genuinely competitive — and, eventually, to actually like math.</p>
+    <p>Outside of the material, I'm talkative and easy to work with, and every student gets the same effort from me regardless of where they're starting. I look forward to meeting a new group of students each year.</p>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-panel">
+      <div>
+        <h2>Ready to get started?</h2>
+        <p>Reach out to set up an assessment session and get a resource plan built around your student's grade level.</p>
+      </div>
+      <div class="btn-group">
+        <a class="btn" href="mailto:ascentskillz@gmail.com">Email: ascentskillz@gmail.com</a>
+        <a class="btn secondary" href="tel:5184141519">Call: (518) 414-1519</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Ascent</span>
+    <span>Math &amp; Science, Grades 7–12</span>
+  </div>
+</footer>
+
+<script>
+  const btns = document.querySelectorAll('.tier-btn');
+  const tiers = document.querySelectorAll('section.tier');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.setAttribute('aria-selected','false'));
+      tiers.forEach(t => t.classList.remove('active'));
+      btn.setAttribute('aria-selected','true');
+      document.getElementById(btn.dataset.tier).classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
